@@ -1,0 +1,1 @@
+- Styling is kept inline within a `<style>` block in the document head rather than split into separate CSS files.

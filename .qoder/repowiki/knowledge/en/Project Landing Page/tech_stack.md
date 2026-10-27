@@ -1,0 +1,1 @@
+Plain HTML5 + inline CSS; no JavaScript or build toolchain.

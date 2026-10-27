@@ -1,0 +1,1 @@
+Minimal static landing page serving a centered Uzbek greeting as the site's root entry point.

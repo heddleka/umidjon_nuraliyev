@@ -1,0 +1,16 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: en-US
+branch: main
+nodes_managed: true
+exported_at: "2026-10-27T10:57:18Z"
+modules:
+    "":
+        dir_name: Project Landing Page
+        title: Project Landing Page
+        scope:
+            - index.html
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []

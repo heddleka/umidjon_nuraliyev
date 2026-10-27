@@ -1,0 +1,1 @@
+Single-file HTML entry with no external dependencies: inline CSS styles the body using a CSS Grid centering layout and a responsive `clamp()`-based heading size, while the `<main>` element renders only an `<h1>` greeting. The document is declared in Uzbek (`lang="uz"`) and uses Georgia/Times New Roman serif fonts for typography.
