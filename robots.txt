@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nuraliyev.vercel.app/sitemap.xml
+Sitemap: https://umidjonn.vercel.app/sitemap.xml
