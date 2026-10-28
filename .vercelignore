@@ -1,0 +1,5 @@
+.build-tools
+.vercel-tmp
+node_modules
+.env.local
+.git

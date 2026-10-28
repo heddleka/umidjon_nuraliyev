@@ -1,2 +1,7 @@
 .vercel
 .env*
+
+# Build/trackuvchi vositalar (saytga kirmaydi)
+.build-tools/
+.vercel-tmp/
+node_modules/

@@ -37,26 +37,109 @@
 }
 </script>
 <style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
   body {
-    margin: 0;
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 1rem;
+    background: #0a0a0c;
+    color: #eaeaea;
     font-family: Georgia, "Times New Roman", serif;
-    line-height: 1.4;
-    text-align: center;
   }
-  h1 {
-    margin: 0;
-    font-size: clamp(1.75rem, 6vw, 3rem);
-    font-weight: normal;
+  /* Sahifa ko'rinishi — butun ekranni egallaydi */
+  #scene {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;   /* to'liq ko'rinadigan ekran (manzil paneli bilan ham) */
+    overflow: hidden;
+    background: #000;
+  }
+  #frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* ekranni to'liq qoplaydi, har qanday o'lchamda */
+    object-position: center;
+    display: block;
+  }
+  /* Desktop'da skroll uchun bo'sh joy — qancha katta bo'lsa, kadr shuncha SEKIN almashadi */
+  #scroll-space { height: 3000vh; }
+  .hint {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    font-size: 14px;
+    letter-spacing: .05em;
+    opacity: .8;
+    text-align: center;
+    pointer-events: none;
+    transition: opacity .5s ease;
+  }
+  .hint.hide { opacity: 0; }
+  /* Mobil: skroll masofasi (kadrlar skroll bilan almashadi) */
+  @media (max-width: 767px) {
+    #scroll-space { height: 2000vh; }
   }
 </style>
 </head>
 <body>
-  <main>
-    <h1>Assalomu alykum</h1>
-  </main>
+  <div id="scene">
+    <img id="frame" src="/frames/frame_001.jpg" alt="Umidjon Nuraliyev">
+  </div>
+  <div class="hint" id="hint">Pastga skrollang ↓</div>
+  <div id="scroll-space"></div>
+
+<script>
+(function () {
+  // Ikki to'plam: desktop (gorizontal) va mobil (vertikal) — ikkalasi ham skroll bilan boshqariladi
+  var DESKTOP = { base: '/frames/', count: 300 };
+  var MOBILE  = { base: '/frames-mobile/', count: 300 };
+
+  var frameEl = document.getElementById('frame');
+  var hintEl = document.getElementById('hint');
+  var current = -1;
+
+  var isDesktop = window.matchMedia('(min-width: 768px)').matches;
+  var active = isDesktop ? DESKTOP : MOBILE;
+
+  function pad(n) { return (n < 10 ? '00' : n < 100 ? '0' : '') + n; }
+  function url(set, i) { return set.base + 'frame_' + pad(i + 1) + '.jpg'; }
+
+  // Faqat FAOL to'plamni oldindan yuklaymiz (ikkinchisini sarflamaymiz)
+  frameEl.src = url(active, 0);
+  var imgs = [];
+  for (var i = 0; i < active.count; i++) {
+    var im = new Image();
+    im.src = url(active, i);
+    imgs.push(im);
+  }
+
+  function setFrame(i) {
+    if (i === current) return;
+    current = i;
+    frameEl.src = url(active, i);
+  }
+
+  // Ham desktop, ham mobil: skroll orqali boshqariladi
+  // (pastga tortsa kadrlar oldinga, tepaga tortsa orqaga qaytadi)
+  var ticking = false;
+  function update() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) : 0;
+    if (p < 0) p = 0; if (p > 1) p = 1;
+    var idx = Math.min(active.count - 1, Math.floor(p * active.count));
+    setFrame(idx);
+    if (window.scrollY > 40) hintEl.classList.add('hide');
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
 </body>
 </html>
