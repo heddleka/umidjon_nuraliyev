@@ -37,31 +37,97 @@
 }
 </script>
 <style>
-  * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; }
-  body {
-    background: #0a0a0c;
-    color: #eaeaea;
-    font-family: Georgia, "Times New Roman", serif;
+  :root{
+    --accent:#3fe0ff;
+    --accent2:#7aa2ff;
+    --glass:rgba(10,20,40,.45);
+    --stroke:rgba(120,220,255,.35);
   }
-  /* Butun ekranni egallagan rasm — har qanday o'lchamga moslashadi */
-  #scene {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
-    background: #000;
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:#05060a;color:#eaf6ff;
+    font-family:Georgia,"Times New Roman",serif;
+    overflow-x:hidden;
   }
-  #frame {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+  /* ---------- Fon rasmi ---------- */
+  #scene{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#000;z-index:0}
+  #frame{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+
+  /* ---------- Vizual effektlar ---------- */
+  .fx{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .fx .glow{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;mix-blend-mode:screen;animation:float 14s ease-in-out infinite}
+  .g1{width:420px;height:420px;background:radial-gradient(circle,#3fe0ff,transparent 70%);top:-80px;left:-60px}
+  .g2{width:520px;height:520px;background:radial-gradient(circle,#7a5cff,transparent 70%);bottom:-140px;right:-80px;animation-delay:-5s}
+  .g3{width:360px;height:360px;background:radial-gradient(circle,#ff4fd8,transparent 70%);top:40%;right:20%;animation-delay:-9s;opacity:.35}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.1)}66%{transform:translate(-30px,30px) scale(.95)}}
+  .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(80,180,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(80,180,255,.08) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 75%);mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 75%)}
+  .scan{position:absolute;left:0;right:0;height:180px;background:linear-gradient(180deg,transparent,rgba(63,224,255,.10),transparent);animation:scan 7s linear infinite}
+  @keyframes scan{0%{top:-180px}100%{top:100%}}
+  /* HUD burchak ramkalar */
+  .hud{position:fixed;inset:14px;z-index:2;pointer-events:none}
+  .hud span{position:absolute;width:40px;height:40px;border:2px solid var(--stroke)}
+  .hud .tl{top:0;left:0;border-right:0;border-bottom:0}
+  .hud .tr{top:0;right:0;border-left:0;border-bottom:0}
+  .hud .bl{bottom:0;left:0;border-right:0;border-top:0}
+  .hud .br{bottom:0;right:0;border-left:0;border-top:0}
+
+  /* ---------- UI ---------- */
+  .ui{position:relative;z-index:3;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+  header.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(16px,4vw,44px);flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand .logo{width:44px;height:44px;color:var(--accent);filter:drop-shadow(0 0 10px rgba(63,224,255,.7))}
+  .brand h1{font-size:clamp(20px,3.4vw,34px);margin:0;letter-spacing:.12em;font-weight:700;
+    background:linear-gradient(90deg,#fff,#8fe9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand h1 b{color:var(--accent);-webkit-text-fill-color:var(--accent)}
+
+  nav#nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .nav-group{display:contents}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 18px;border-radius:999px;cursor:pointer;
+    font-family:inherit;font-size:14px;letter-spacing:.06em;color:#dff4ff;
+    background:var(--glass);border:1px solid var(--stroke);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:transform .15s ease, box-shadow .25s ease, border-color .25s, background .25s, color .25s;
+    text-transform:uppercase;white-space:nowrap;
+  }
+  .btn svg{width:18px;height:18px;flex:0 0 auto}
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 0 18px rgba(63,224,255,.45);color:#fff}
+  .btn.active{background:linear-gradient(180deg,rgba(63,224,255,.28),rgba(63,224,255,.12));border-color:var(--accent);color:#fff;box-shadow:0 0 22px rgba(63,224,255,.55), inset 0 0 12px rgba(63,224,255,.25)}
+
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:20px clamp(16px,4vw,44px) 40px}
+  .panel{
+    width:min(680px,100%);text-align:center;
+    padding:clamp(24px,5vw,48px);border-radius:20px;
+    background:var(--glass);border:1px solid var(--stroke);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    box-shadow:0 10px 40px rgba(0,0,0,.4), inset 0 0 30px rgba(63,224,255,.06);
+    animation:pop .4s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  .panel .rocket{font-size:40px;margin-bottom:6px;display:block;filter:drop-shadow(0 0 12px rgba(63,224,255,.6))}
+  .panel .badge{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);opacity:.9}
+  .panel h2{font-size:clamp(22px,4vw,34px);margin:10px 0 6px;letter-spacing:.04em}
+  .panel .empty{font-size:clamp(16px,2.4vw,20px);opacity:.9;margin-top:14px}
+  .panel .soon{font-size:14px;opacity:.6;margin-top:8px}
+  .panel.hidden{display:none}
+
+  /* ---------- Mobil ---------- */
+  @media (max-width:767px){
+    header.bar{flex-direction:column;align-items:center;text-align:center;gap:14px;padding-top:26px}
+    .brand{flex-direction:column;gap:8px}
+    nav#nav{width:100%;justify-content:center}
+    .btn.home{margin-bottom:4px}
+    .nav-group{
+      position:fixed;left:0;right:0;bottom:0;z-index:5;
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;
+      width:100%;max-width:440px;margin:0 auto;
+      padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px));
+      background:linear-gradient(180deg,rgba(5,8,16,0),rgba(5,8,16,.6) 45%);
+    }
+    .nav-group .btn{justify-content:center;width:100%}
+    main{padding-bottom:200px}
   }
 </style>
 </head>
@@ -72,5 +138,102 @@
       <img id="frame" src="/hero-desktop.jpg" alt="Umidjon Nuraliyev">
     </picture>
   </div>
+
+  <div class="fx" aria-hidden="true">
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+    <div class="glow g3"></div>
+    <div class="grid"></div>
+    <div class="scan"></div>
+  </div>
+
+  <div class="hud" aria-hidden="true">
+    <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
+  </div>
+
+  <div class="ui">
+    <header class="bar">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M24 3l18 10.5v21L24 45 6 34.5v-21z"/>
+          <circle cx="24" cy="24" r="3.5" fill="currentColor" stroke="none"/>
+          <ellipse cx="24" cy="24" rx="12" ry="5"/>
+          <ellipse cx="24" cy="24" rx="12" ry="5" transform="rotate(60 24 24)"/>
+        </svg>
+        <h1>NURALIYEV <b>UMIDJON</b></h1>
+      </div>
+
+      <nav id="nav" aria-label="Asosiy menyu">
+        <button class="btn home active" data-title="Bosh sahifa" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+          Bosh sahifa
+        </button>
+        <div class="nav-group">
+          <button class="btn" data-title="Men haqimda" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+            Men haqimda
+          </button>
+          <button class="btn" data-title="Loyihalar" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Loyihalar
+          </button>
+          <button class="btn" data-title="Sertifikatlar" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-1 8 4-2 4 2-1-8"/></svg>
+            Sertifikatlar
+          </button>
+          <button class="btn" data-title="Bog'lanish" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            Bog'lanish
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel hidden" id="panel">
+        <span class="rocket">🚀</span>
+        <div class="badge" id="badge">BOSH SAHIFA</div>
+        <h2 id="pageTitle">Bosh sahifa</h2>
+        <p class="empty">Hozircha bu yerda hech narsa yo'q.</p>
+        <p class="soon">Bu bo'lim tez orada to'ldiriladi ✦</p>
+      </section>
+    </main>
+  </div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.btn');
+  var badge = document.getElementById('badge');
+  var titleEl = document.getElementById('pageTitle');
+  var panel = document.getElementById('panel');
+  var homeBtn = document.querySelector('.btn.home');
+
+  function activate(btn) {
+    buttons.forEach(function (x) { x.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+
+  /* Bosh sahifa — panelni yashirib, faqat rasm + tugmalar holatiga qaytadi */
+  homeBtn.addEventListener('click', function () {
+    activate(homeBtn);
+    panel.classList.add('hidden');
+  });
+
+  /* Qolgan bo'limlar — panelni ko'rsatadi */
+  document.querySelectorAll('.nav-group .btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      activate(b);
+      var t = b.getAttribute('data-title') || '';
+      badge.textContent = t.toUpperCase();
+      titleEl.textContent = t;
+      panel.classList.remove('hidden');
+      /* animatsiyani qayta ishga tushirish */
+      panel.style.animation = 'none';
+      void panel.offsetWidth;
+      panel.style.animation = '';
+    });
+  });
+})();
+</script>
 </body>
 </html>
