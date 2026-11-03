@@ -3,11 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Umidjon Nuraliyev — Shaxsiy sayt</title>
-<meta name="description" content="Umidjon Nuraliyevning shaxsiy sayti. Umidjon Nuraliyev nomi bilan bog'langan shaxsiy veb-sahifa va uning GitHub profili haqida ma'lumot.">
+<title>Umidjon Nuraliyev — Nuraliyev Umidjon | Shaxsiy veb-sayt</title>
+<meta name="description" content="Bu — Umidjon Nuraliyev (Nuraliyev Umidjon) ning rasmiy shaxsiy veb-sayti. Shaxsiy sahifa, loyihalar, sertifikatlar va bog'lanish bo'limlari. GitHub: heddleka.">
+<meta name="keywords" content="Umidjon Nuraliyev, Nuraliyev Umidjon, umidjon nuraliyev, nuraliyev umidjon, umidjon nuraliev, shaxsiy sayt, portfolio, personal website">
 <meta name="author" content="Umidjon Nuraliyev">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://umidjonn.vercel.app/">
+<link rel="me" href="https://github.com/heddleka">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -15,12 +17,12 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Umidjon Nuraliyev — Shaxsiy sayt">
-<meta property="og:description" content="Umidjon Nuraliyevning shaxsiy sayti. Umidjon Nuraliyev nomi bilan bog'langan shaxsiy veb-sahifa va uning GitHub profili haqida ma'lumot.">
+<meta property="og:title" content="Umidjon Nuraliyev — Nuraliyev Umidjon | Shaxsiy veb-sayt">
+<meta property="og:description" content="Bu — Umidjon Nuraliyev (Nuraliyev Umidjon) ning rasmiy shaxsiy veb-sayti. Shaxsiy sahifa, loyihalar, sertifikatlar va bog'lanish. GitHub: heddleka.">
 <meta property="og:url" content="https://umidjonn.vercel.app/">
-<meta property="og:image" content="https://umidjonn.vercel.app/android-chrome-512x512.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
+<meta property="og:image" content="https://umidjonn.vercel.app/hero-desktop.jpg">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
 <meta property="og:image:alt" content="Umidjon Nuraliyev">
 <meta property="og:locale" content="uz_UZ">
 <meta property="og:site_name" content="Umidjon Nuraliyev">
@@ -28,11 +30,31 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Umidjon Nuraliyev",
-  "url": "https://umidjonn.vercel.app/",
-  "sameAs": [
-    "https://github.com/heddleka"
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://umidjonn.vercel.app/#person",
+      "name": "Umidjon Nuraliyev",
+      "alternateName": [
+        "Nuraliyev Umidjon",
+        "Umidjon Nuraliev",
+        "Nuraliyev Umidjon"
+      ],
+      "url": "https://umidjonn.vercel.app/",
+      "image": "https://umidjonn.vercel.app/hero-desktop.jpg",
+      "sameAs": [
+        "https://github.com/heddleka"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://umidjonn.vercel.app/#website",
+      "url": "https://umidjonn.vercel.app/",
+      "name": "Umidjon Nuraliyev — Shaxsiy veb-sayt",
+      "inLanguage": "uz",
+      "about": { "@id": "https://umidjonn.vercel.app/#person" },
+      "publisher": { "@id": "https://umidjonn.vercel.app/#person" }
+    }
   ]
 }
 </script>
@@ -113,6 +135,10 @@
   .panel .soon{font-size:14px;opacity:.6;margin-top:8px}
   .panel.hidden{display:none}
 
+  /* ---------- SEO matn (Google o'qiydi) ---------- */
+  footer.seo{padding:16px clamp(16px,4vw,44px) 24px;text-align:center;font-size:13px;line-height:1.6;color:#bfe9ff;opacity:.72}
+  footer.seo a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+
   /* ---------- Mobil ---------- */
   @media (max-width:767px){
     header.bar{flex-direction:column;align-items:center;text-align:center;gap:14px;padding-top:26px}
@@ -128,6 +154,7 @@
     }
     .nav-group .btn{justify-content:center;width:100%}
     main{padding-bottom:200px}
+    footer.seo{padding:0 clamp(16px,4vw,44px) 170px}
   }
 </style>
 </head>
@@ -198,6 +225,10 @@
         <p class="soon">Bu bo'lim tez orada to'ldiriladi ✦</p>
       </section>
     </main>
+
+    <footer class="seo">
+      <p>Bu — <strong>Umidjon Nuraliyev</strong> (<em>Nuraliyev Umidjon</em>) ning rasmiy shaxsiy veb-sayti. Shaxsiy sahifa, loyihalar, sertifikatlar va bog'lanish bo'limlari. GitHub profilingi: <a href="https://github.com/heddleka" rel="me noopener" target="_blank">heddleka</a>.</p>
+    </footer>
   </div>
 
 <script>
