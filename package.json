@@ -1,0 +1,12 @@
+{
+  "name": "umidjon-nuraliyev-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo 'static site + api functions'"
+  },
+  "dependencies": {
+    "@vercel/blob": "latest"
+  }
+}
